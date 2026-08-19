@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <div >
+<h1 class="question"></h1>
+<ul class="answers">
+
+
+</ul>
+    </div>
+
+    <div class="score"></div>
+
+<button class="validate">done</button>
+
+  <script>
+
+const questions = [
+    {
+        question: "What is the capital of Morocco?",
+        options: ["Casablanca", "Rabat", "El Jadida", "Khouribga"],
+        answer: "Rabat" 
+    },
+    {
+        question: "Who won the 2022 World Cup?",
+        options: ["Morocco", "France", "Brazil", "Argentina"],
+        answer: "France"
+    },
+    {
+        question: "What is a traditional Moroccan dish?",
+        options: ["Couscous", "Tagine", "Pastilla", "Harira"],
+        answer: "Tagine"
+    }
+
+
+
+
+];
+
+
+
+let h1= document.querySelector("h1");
+
+let ul = document.querySelector("ul");
+
+let btn = document.querySelector("button")
+
+let currQuestion = 0;
+
+
+
+let score=0;
+btn.onclick=()=>{
+let checks = document.querySelectorAll(".answer");
+
+
+let val="";
+for(let i of checks){
+    if(i.checked){
+      val=i.value;
+    }
+}
+if(questions[currQuestion].answer==val){
+    score++;
+}
+
+console.log(val);
+currQuestion++;
+ul.innerHTML=""
+
+
+
+
+showQuestionDetail(currQuestion)
+
+
+    
+}
+
+
+
+
+
+function showQuestionDetail(pos){
+
+    if(pos==questions.length){
+ 
+setTimeout(()=>{
+   
+    document.querySelector(".score").innerHTML="votre score est <b>"+score+"</b>/"+questions.length
+    let reloadBtn = document.createElement("button");
+    
+    reloadBtn.innerHTML="Rejouer !";
+    reloadBtn.onclick=()=>window.location.reload();
+    document.body.append(reloadBtn)
+
+    document.querySelector(".validate").remove();
+},3000)
+
+
+    }else{
+   const currQuest = questions[pos];
+
+    h1.innerHTML=currQuest.question;
+    currQuest.options.forEach((el,i)=>{
+
+      let checkbox = document.createElement("input");
+      checkbox.type="checkbox";
+      checkbox.value=el;
+      checkbox.classList.add("answer")
+
+      let span = document.createElement("span");
+      span.innerHTML=el;
+
+      let li = document.createElement("li");
+
+      li.append(checkbox);
+      li.append(span);
+      ul.append(li)
+
+    })
+   
+    
+
+}
+
+
+
+
+
+    }
+
+ 
+showQuestionDetail(currQuestion)
+
+
+
+
+  </script>  
+</body>
+</html>
